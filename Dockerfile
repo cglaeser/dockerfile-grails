@@ -21,6 +21,7 @@ RUN RUN yes | /bin/bash -l -c 'sdk install grails $GRAILS_VERSION'
 
 # Setup Grails path.
 ENV GRAILS_HOME /root/.sdkman/candidates/grails/current
+ENV GRAILS_OPTS '-server -Xmx4096 -Xms256M -Dfile.encoding=UTF-8'
 ENV PATH $GRAILS_HOME/bin:$PATH
 
 
