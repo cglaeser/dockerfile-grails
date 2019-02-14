@@ -7,7 +7,7 @@ SHELL ["/bin/bash","-c"]
 ENV GRAILS_VERSION 2.5.6
 
 RUN apt-get update -qq && apt-get install -y -qq unzip && apt-get install zip && apt-get install -y -qq locales && apt-get install -y -qq rsync
-RUN apt-get install -y - qq tree
+RUN apt-get install -y -qq tree
 RUN dpkg-reconfigure -f noninteractive tzdata && \
         sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
         sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
