@@ -32,8 +32,8 @@ RUN apt-get update && \
 # Setup JAVA_HOME, this is useful for docker commandline
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
-RUN apt-get install -y -qq tree
-RUN apt-get install -y -qq smbclient
+RUN apt-get update && apt-get install -y -qq tree
+RUN  apt-get update && apt-get install -y -qq smbclient
 RUN dpkg-reconfigure -f noninteractive tzdata && \
         sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
         sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
