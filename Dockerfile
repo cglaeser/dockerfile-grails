@@ -3,11 +3,11 @@ FROM ubuntu:18.04
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
 
-#SHELL ["/bin/bash","-c"]
+SHELL ["/bin/bash","-c"]
 
 ENV GRAILS_VERSION 2.5.6
 
-RUN apt-get update -qq && apt-get upgrade && apt-get install -y -qq unzip && apt-get install zip && apt-get install -y -qq locales && apt-get install -y -qq rsync
+RUN apt-get update -qq && apt-get upgrade && apt-get install -y -qq unzip && apt-get install -y -qq zip && apt-get install -y -qq locales && apt-get install -y -qq rsync
 # This is in accordance to : https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
 RUN apt-get update && \
 	apt-get install -y openjdk-8-jdk && \
