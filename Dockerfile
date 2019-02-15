@@ -25,7 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		procps \
 	&& rm -rf /var/lib/apt/lists/*
 # This is in accordance to : https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
-RUN apt-get install -y -qq unzip && \
+RUN apt-get update &&  \\
+    apt-get install -y -qq unzip && \
     apt-get install -y -qq zip && \
     apt-get install -y -qq locales && \
     apt-get install -y -qq rsync
