@@ -34,12 +34,9 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 RUN export JAVA_HOME
 RUN apt-get update && apt-get install -y -qq tree
 RUN  apt-get update && apt-get install -y -qq smbclient
-RUN dpkg-reconfigure -f noninteractive tzdata && \
-        sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-        sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
-        echo 'LANG="de_DE.UTF-8"'>/etc/default/locale && \
-        dpkg-reconfigure --frontend=noninteractive locales && \
-        update-locale LANG=de_DE.UTF-8
+RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+ENV LANG en_US.utf8
 RUN curl -sSL https://get.sdkman.io | bash
 RUN echo sdkman_auto_answer=true > /root/.sdkman/etc/config
 RUN source /root/.sdkman/bin/sdkman-init.sh
