@@ -8,11 +8,28 @@ SHELL ["/bin/bash","-c"]
 ENV GRAILS_VERSION 2.5.6
 
 RUN apt-get update && apt-get -y -qq upgrade
+#added packages from stretch:curl
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		ca-certificates \
+		curl \
+		wget \
+	&& rm -rf /var/lib/apt/lists/*
+#added packages from stretch:scm
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		bzr \
+		git \
+		mercurial \
+		openssh-client \
+		subversion \
+		\
+		procps \
+	&& rm -rf /var/lib/apt/lists/*
+# This is in accordance to : https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
 RUN apt-get install -y -qq unzip && \
     apt-get install -y -qq zip && \
     apt-get install -y -qq locales && \
     apt-get install -y -qq rsync
-# This is in accordance to : https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
+#install jdk 8
 RUN apt-get update && \
 	apt-get install -y openjdk-8-jdk && \
 	apt-get install -y ant && \
