@@ -58,7 +58,7 @@ ENV LANG en_US.utf8
 RUN curl -sSL https://get.sdkman.io | bash
 RUN echo sdkman_auto_answer=true > /root/.sdkman/etc/config
 RUN source /root/.sdkman/bin/sdkman-init.sh
-RUN RUN yes | /bin/bash -l -c 'sdk install grails $GRAILS_VERSION'
+RUN yes | /bin/bash -l -c 'sdk install grails $GRAILS_VERSION'
 
 
 # Setup Grails path.
