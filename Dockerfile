@@ -2,7 +2,8 @@ FROM ubuntu:18.04
 
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
-SHELL ["/bin/bash","-c"]
+
+#SHELL ["/bin/bash","-c"]
 
 ENV GRAILS_VERSION 2.5.6
 
