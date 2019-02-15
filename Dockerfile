@@ -7,7 +7,7 @@ SHELL ["/bin/bash","-c"]
 
 ENV GRAILS_VERSION 2.5.6
 
-RUN apt-get update && apt-get upgrade
+RUN apt-get update && apt-get -y -qq upgrade
 RUN apt-get install -y -qq unzip && \
     apt-get install -y -qq zip && \
     apt-get install -y -qq locales && \
