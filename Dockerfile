@@ -6,7 +6,8 @@ SHELL ["/bin/bash","-c"]
 
 ENV GRAILS_VERSION 2.5.6
 
-RUN apt-get update -qq && apt-get install -y -qq unzip && apt-get install zip && apt-get install -y -qq locales && apt-get install -y -qq rsync
+RUN apt-get update -qq 
+RUN apt-get install -y --no-install-recommends apt-utils && apt-get install -y -qq unzip && apt-get install zip && apt-get install -y -qq locales && apt-get install -y -qq rsync
 RUN apt-get install -y -qq tree
 RUN apt-get install -y -qq smbclient
 RUN dpkg-reconfigure -f noninteractive tzdata && \
