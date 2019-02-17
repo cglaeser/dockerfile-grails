@@ -1,69 +1,50 @@
-FROM ubuntu:18.04
+FROM alpine:3.9
 
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
 SHELL ["/bin/bash","-c"]
 
 ENV SDKMAN_DIR /usr/local/sdkman
+ENV JAVA_VERSION=8 \
+    JAVA_UPDATE=202 \
+    JAVA_BUILD=08 \
+    JAVA_PATH=1961070e4c9b4e26a04e7f5a083f551e \
+    JAVA_HOME="/usr/lib/jvm/default-jvm"
 
 ENV GRAILS_VERSION 2.5.6
 
-RUN apt-get update && apt-get -y -qq upgrade
-#added packages from stretch:curl
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		ca-certificates \
-		curl \
-		wget \
-	&& rm -rf /var/lib/apt/lists/*
-#added packages from stretch:scm
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		bzr \
-		git \
-		mercurial \
-		openssh-client \
-		subversion \
-		\
-		procps \
-	&& rm -rf /var/lib/apt/lists/*
-# This is in accordance to : https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
-RUN apt-get update &&  \
-    apt-get install -y -qq unzip && \
-    apt-get install -y -qq zip && \
-    apt-get install -y -qq locales && \
-    apt-get install -y -qq rsync
-#install jdk 8
-RUN apt-get update && \
-	apt-get install -y openjdk-8-jdk && \
-	apt-get install -y ant && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/* && \
-	rm -rf /var/cache/oracle-jdk8-installer;
-	
-# Fix certificate issues, found as of 
-# https://bugs.launchpad.net/ubuntu/+source/ca-certificates-java/+bug/983302
-RUN apt-get update && \
-	apt-get install -y ca-certificates-java && \
-	apt-get clean && \
-	update-ca-certificates -f && \
-	rm -rf /var/lib/apt/lists/* && \
-	rm -rf /var/cache/oracle-jdk8-installer;
+#added packages to create a comparable images to docker debian stretch / dev base tools
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+RUN apk add ca-certificates
+RUN apk add curl
+RUN apk add wget
+RUN apk add git
+RUN apk add bzr
+RUN apk add mercurial
+RUN apk add subversion
+RUN apk add procps
+RUN apk add unzip
+RUN apk add zip
+RUN apk add rsync
+RUN apk add openjdk8
 
-# Setup JAVA_HOME, this is useful for docker commandline
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
-RUN export JAVA_HOME
-RUN apt-get update && apt-get install -y -qq tree
-RUN  apt-get update && apt-get install -y -qq smbclient
-RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+#check java installation
+RUN echo 'public class Main { public static void main(String[] args) { System.out.println("Java code is running fine!"); } }' > Main.java && \
+    javac Main.java && \
+    java Main 
+    
+RUN apk add tree
+RUN apk add sambaclient
 # install sdkman
 RUN curl -s "https://get.sdkman.io" | bash
 #configure sdkman install
-RUN sed -i 's/sdkman_auto_answer=false/sdkman_auto_answer=true/g' /root/.sdkman/etc/config
+RUN source "$HOME/.sdkman/bin/sdkman-init.sh"
 #check sdk installation
-RUN sdk info 
+RUN sdk version
 #install grails
-RUN 'sdk install grails $GRAILS_VERSION'
+RUN sdk install grails $GRAILS_VERSION
 
 
 # Setup Grails path.
