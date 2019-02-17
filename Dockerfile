@@ -56,11 +56,13 @@ RUN  apt-get update && apt-get install -y -qq smbclient
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 ENV LANG en_US.utf8
-RUN curl -sSL https://get.sdkman.io | bash
-RUN source "/usr/local/sdkman/bin/sdkman-init.sh"
+# install sdkman
+RUN curl -s "https://get.sdkman.io" | bash
+#configure sdkman install
+RUN sed -i 's/sdkman_auto_answer=false/sdkman_auto_answer=true/g' /root/.sdkman/etc/config
+#check sdk installation
 RUN sdk info 
-#RUN chmod a+x "$HOME/.sdkman/bin/sdkman-init.sh"
-#RUN source "$HOME/.sdkman/bin/sdkman-init.sh" 
+#install grails
 RUN 'sdk install grails $GRAILS_VERSION'
 
 
