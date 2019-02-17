@@ -2,8 +2,6 @@ FROM alpine:3.9
 
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
-SHELL ["/bin/bash","-c"]
-
 ENV SDKMAN_DIR /usr/local/sdkman
 ENV JAVA_VERSION=8 \
     JAVA_UPDATE=202 \
