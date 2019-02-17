@@ -11,6 +11,10 @@ ENV GRAILS_VERSION 2.5.6
 RUN apk update
 RUN apk upgrade
 RUN apk add bash
+
+#now safe to assume bash exists and run further commands in bash
+SHELL ["/bin/bash","-c"]
+
 RUN apk add ca-certificates
 RUN apk add curl
 RUN apk add wget
@@ -42,9 +46,9 @@ RUN echo "sdkman_auto_answer=true" > $SDKMAN_DIR/etc/config && \
     echo "sdkman_auto_selfupdate=false" >> $SDKMAN_DIR/etc/config && \
     echo "sdkman_insecure_ssl=true" >> $SDKMAN_DIR/etc/config
 #check sdk installation
-RUN bash -c ". /root/.sdkman/bin/sdkman-init.sh && sdk version"
+RUN . /root/.sdkman/bin/sdkman-init.sh && sdk version
 #install grails
-RUN bash -c ". /root/.sdkman/bin/sdkman-init.sh sdk install grails $GRAILS_VERSION"
+RUN . /root/.sdkman/bin/sdkman-init.sh && sdk install grails $GRAILS_VERSION
 
 
 # Setup Grails path.
