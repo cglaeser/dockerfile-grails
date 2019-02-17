@@ -2,8 +2,9 @@ FROM ubuntu:18.04
 
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
-
 SHELL ["/bin/bash","-c"]
+
+ENV SDKMAN_DIR /usr/local/sdkman
 
 ENV GRAILS_VERSION 2.5.6
 
@@ -57,8 +58,7 @@ RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* 
 ENV LANG en_US.utf8
 RUN curl -sSL https://get.sdkman.io | bash
 RUN echo sdkman_auto_answer=true > /root/.sdkman/etc/config
-RUN source /root/.sdkman/bin/sdkman-init.sh
-RUN yes | 'sdk install grails $GRAILS_VERSION'
+RUN ./root/.sdkman/bin/sdkman-init.sh && 'sdk install grails $GRAILS_VERSION'
 
 
 # Setup Grails path.
