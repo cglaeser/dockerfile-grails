@@ -34,7 +34,7 @@ RUN echo 'public class Main { public static void main(String[] args) { System.ou
     java Main 
     
 RUN apk add tree
-RUN apk add sambaclient
+RUN apk add samba-client
 # install sdkman
 RUN curl -s "https://get.sdkman.io" | bash
 #configure sdkman install
