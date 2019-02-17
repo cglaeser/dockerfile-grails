@@ -52,6 +52,8 @@ ENV GRAILS_HOME /root/.sdkman/candidates/grails/current
 ENV GRAILS_OPTS '-server -Xmx4096M -Xms256M -Dfile.encoding=UTF-8'
 ENV PATH $GRAILS_HOME/bin:$PATH
 
+# check successful grails setup
+RUN grails help
 
 # Set Default Behavior
 #ENTRYPOINT ["grails"]
