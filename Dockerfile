@@ -3,11 +3,7 @@ FROM alpine:3.9
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
 ENV SDKMAN_DIR /usr/local/sdkman
-ENV JAVA_VERSION=8 \
-    JAVA_UPDATE=202 \
-    JAVA_BUILD=08 \
-    JAVA_PATH=1961070e4c9b4e26a04e7f5a083f551e \
-    JAVA_HOME="/usr/lib/jvm/default-jvm"
+
 
 ENV GRAILS_VERSION 2.5.6
 
@@ -27,6 +23,10 @@ RUN apk add unzip
 RUN apk add zip
 RUN apk add rsync
 RUN apk add openjdk8
+
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
+ENV PATH="$JAVA_HOME/bin:${PATH}"    
+
 
 #check java installation
 RUN echo 'public class Main { public static void main(String[] args) { System.out.println("Java code is running fine!"); } }' > Main.java && \
