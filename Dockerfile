@@ -2,7 +2,7 @@ FROM alpine:3.9
 
 MAINTAINER Christian Glaeser <glaeser@denkformat.de>
 
-ENV SDKMAN_DIR /usr/local/sdkman
+ENV SDKMAN_DIR=/root/.sdkman
 
 
 ENV GRAILS_VERSION 2.5.6
@@ -38,11 +38,13 @@ RUN apk add samba-client
 # install sdkman
 RUN curl -s "https://get.sdkman.io" | bash
 #configure sdkman install
-RUN source "$HOME/.sdkman/bin/sdkman-init.sh"
+RUN echo "sdkman_auto_answer=true" > $SDKMAN_DIR/etc/config && \
+    echo "sdkman_auto_selfupdate=false" >> $SDKMAN_DIR/etc/config && \
+    echo "sdkman_insecure_ssl=true" >> $SDKMAN_DIR/etc/config
 #check sdk installation
-RUN sdk version
+RUN bash -c ". /root/.sdkman/bin/sdkman-init.sh && sdk version"
 #install grails
-RUN sdk install grails $GRAILS_VERSION
+RUN bash -c ". /root/.sdkman/bin/sdkman-init.sh sdk install grails $GRAILS_VERSION"
 
 
 # Setup Grails path.
