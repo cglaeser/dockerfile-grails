@@ -24,6 +24,8 @@ RUN apk add procps
 RUN apk add unzip
 RUN apk add zip
 RUN apk add rsync
+RUN apk add findutils
+RUN apk add alpine-sdk
 RUN apk add openjdk8
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
