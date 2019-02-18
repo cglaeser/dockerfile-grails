@@ -20,8 +20,6 @@ RUN apk add curl
 RUN apk add wget
 RUN apk add git
 RUN apk add bzr
-RUN apk add mercurial
-RUN apk add subversion
 RUN apk add procps
 RUN apk add unzip
 RUN apk add zip
@@ -53,7 +51,7 @@ RUN . /root/.sdkman/bin/sdkman-init.sh && sdk install grails $GRAILS_VERSION
 
 # Setup Grails path.
 ENV GRAILS_HOME /root/.sdkman/candidates/grails/current
-ENV GRAILS_OPTS '-server -Xmx4096M -Xms256M -Dfile.encoding=UTF-8'
+ENV GRAILS_OPTS '-server -Xmx4096M -Xms512M -Dfile.encoding=UTF-8'
 ENV PATH $GRAILS_HOME/bin:$PATH
 
 # check successful grails setup
