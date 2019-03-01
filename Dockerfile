@@ -19,6 +19,8 @@ RUN apk add ca-certificates
 RUN apk add curl
 RUN apk add wget
 RUN apk add git
+RUN apk add mercurial
+RUN apk add subversion
 RUN apk add bzr
 RUN apk add procps
 RUN apk add unzip
