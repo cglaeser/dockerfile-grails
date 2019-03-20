@@ -31,6 +31,7 @@ RUN apk add alpine-sdk
 #openssh installation according to https://gitlab.com/gitlab-org/gitlab-runner/issues/2478
 RUN apk add --update openssh-client bash
 RUN apk add openjdk8
+RUN apk add --no-cache nss
 
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 ENV PATH="$JAVA_HOME/bin:${PATH}"    
